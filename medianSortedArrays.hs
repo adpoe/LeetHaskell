@@ -1,13 +1,15 @@
 module MedianSortedArray where
-import Data.Array;
--- From comments at: http://www.jacobsheehy.com/2009/03/binary-search-in-haskell/
+import Data.Array
 
-binarySearch :: Array Int Int -> Int -> Int -> Int -> Int -- list, value, low, high, return int
-binarySearch haystack needle lo hi
-  | hi < lo	= Nothing
-  | pivot > needle	= binarySearch haystack needle lo (mid-1)
-  | pivot < needle	= binarySearch haystack needle (mid+1) hi
-  | otherwise	= Just mid
+getMedian :: Array Int Int -> Int
+getMedian xs = 0
+
+
+-- From comments at: http://www.jacobsheehy.com/2009/03/binary-search-in-haskell/
+binsearch :: (Ord a) => [a] -> a -> Int -> Int -> Maybe Int
+binsearch xs value low high
+  | high value = binsearch xs value low (mid-1)
+  | xs!!mid < value = binsearch xs value (mid+1) high
+  | otherwise = Just mid
     where
-      mid	= lo + (hi-lo) `div` 2
-      pivot	= haystack!mid
+        mid = low + ((-) high low `div` 2)
